@@ -19,6 +19,7 @@
     <feature>persistence-3.1</feature>
     <feature>restfulWS-3.1</feature>
     <feature>xmlBinding-4.0</feature>
+    <feature>mpTelemetry-1.0</feature>
   </featureManager> 
 
   <!--
