@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import jakarta.json.bind.JsonbBuilder;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -15,6 +16,8 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.Response;
+import org.eclipse.cargotracker.interfaces.booking.web.CargoDetails;
 import org.eclipse.pathfinder.internal.GraphDao;
 
 @Stateless

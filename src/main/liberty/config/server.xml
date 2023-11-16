@@ -100,7 +100,7 @@
 
   <jdbcDriver id="dbDriver" libraryRef="dbLib"/>
 
-  <library id="dbLib">
+  <library id="dbLib" apiTypeVisibility="+third-party">
     <fileset dir="${shared.resource.dir}" includes="hsqldb*.jar"/>
   </library>
 
@@ -124,7 +124,7 @@
   </ejbContainer>
 
   <webApplication contextRoot="cargo-tracker" location="cargo-tracker.war">
-    <classloader commonLibraryRef="dbLib"/>
+    <classloader apiTypeVisibility="+third-party" commonLibraryRef="dbLib"/>
     <web-bnd moduleName="cargo-tracker">
       <env-entry name="java:app/configuration/GraphTraversalUrl" value="http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path"/>
     </web-bnd>
