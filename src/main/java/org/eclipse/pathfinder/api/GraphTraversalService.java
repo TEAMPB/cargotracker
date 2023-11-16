@@ -33,6 +33,16 @@ public class GraphTraversalService {
   private final Random random = new Random();
   @Inject private GraphDao dao;
 
+  @Inject
+  private CargoDetails cargoDetails;
+
+  @GET
+  @Produces("application/json")
+  public Response getSomeStuff( @QueryParam("name") String name){
+    cargoDetails.someRandomLoad(name);
+    return Response.accepted(JsonbBuilder.create().toJson(name)).build();
+  }
+
   @GET
   @Path("/shortest-path")
   @Produces({"application/json", "application/xml; qs=.75"})

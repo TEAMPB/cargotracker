@@ -54,8 +54,39 @@ public class CargoDetails {
 
   @WithSpan("Load Cargo Info")
   public void load() {
-    cargo = bookingServiceFacade.loadCargoForRouting(trackingId);
+    logger.severe("Some message!");
+    final Span someInternalSpan = tracer.spanBuilder("SomeInternalSpan").startSpan();
+    try (Scope scope = someInternalSpan.makeCurrent()) {
+      Thread.sleep(2000);
+      someInternalSpan.addEvent("Starte Trackinglademechanismus", Attributes.of(AttributeKey.stringKey("Tracking-Id"),trackingId));
+      cargo= bookingServiceFacade.loadCargoForRouting(trackingId);
+      someInternalSpan.addEvent("Trackinglademechanismus beendet",
+              Attributes.of(
+                      AttributeKey.stringKey("Tracking-Id"),trackingId
+                      ,AttributeKey.stringKey("Cargo"),cargo.toString()));
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    } finally {
+      someInternalSpan.end();
+    }}
+
+  @WithSpan("Some Random Span")
+  public void someRandomLoad(@SpanAttribute("trackingInfo") String trackingId){
+    logger.severe("Some message!");
+    final Span someInternalSpan = tracer.spanBuilder("SomeInternalSpan").startSpan();
+    try (Scope scope = someInternalSpan.makeCurrent()) {
+      Thread.sleep(2000);
+      someInternalSpan.addEvent("Starte Trackinglademechanismus", Attributes.of(AttributeKey.stringKey("Tracking-Id"),trackingId));
+      final CargoRoute cargoRoute = bookingServiceFacade.loadCargoForRouting(trackingId);
+      someInternalSpan.addEvent("Trackinglademechanismus beendet",
+              Attributes.of(
+                      AttributeKey.stringKey("Tracking-Id"),trackingId
+      ,AttributeKey.stringKey("Cargo"),cargoRoute.toString()));
+    } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+    } finally {
+      someInternalSpan.end();
+    }
   }
-}
 
 }

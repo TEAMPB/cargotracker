@@ -111,4 +111,14 @@ public class CargoRoute implements Serializable {
   public String getNextLocation() {
     return this.nextLocation;
   }
+
+  @Override
+  public String toString() {
+    return "CargoRoute{" +
+            "origin=" + origin +
+            ", finalDestination=" + finalDestination +
+            ", lastKnownLocation=" + lastKnownLocation +
+            ", nextLocation='" + nextLocation + '\'' +
+            '}';
+  }
 }
